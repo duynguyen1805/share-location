@@ -1,0 +1,39 @@
+{
+  "rules": {
+    "code_style": {
+      "language": "typescript",
+      "framework": "nextjs",
+      "conventions": {
+        "components": "PascalCase",
+        "functions": "camelCase",
+        "constants": "UPPER_CASE",
+        "interfaces": "PascalCase"
+      }
+    },
+    "architecture": {
+      "folders": {
+        "components": "src/components",
+        "pages": "src/pages",
+        "styles": "src/styles",
+        "utils": "src/utils",
+        "hooks": "src/hooks",
+        "types": "src/types",
+        "services": "src/services"
+      }
+    },
+    "dependencies": {
+      "required": [
+        "next",
+        "react",
+        "react-dom",
+        "firebase",
+        "typescript",
+        "@types/react",
+        "@types/node",
+        "tailwindcss",
+        "postcss",
+        "autoprefixer"
+      ]
+    }
+  }
+} 
