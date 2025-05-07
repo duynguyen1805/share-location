@@ -25,7 +25,7 @@ class LocationService {
       timestamp: Date.now(),
       userId: user.uid,
       displayName: user.displayName || 'Anonymous',
-      photoURL: user.photoURL,
+      photoURL: user.photoURL || undefined,
     };
 
     const userLocationRef = ref(database, `locations/${user.uid}`);
