@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { UserAvatar } from '@/components/UserAvatar';
 import { AuthModal } from '@/components/AuthModal';
+import Image from 'next/image';
 
 export const Header = () => {
   const { user, signInWithGoogle, signOut, error } = useAuth();
@@ -41,7 +42,7 @@ export const Header = () => {
                   onClick={signInWithGoogle}
                   className="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded hover:bg-gray-50 transition-colors flex items-center gap-2"
                 >
-                  <img
+                  <Image
                     src="https://www.google.com/favicon.ico"
                     alt="Google"
                     className="w-4 h-4"

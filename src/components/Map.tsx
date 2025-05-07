@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
+import Image from 'next/image';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useLocation } from '@/hooks/useLocation';
@@ -90,7 +91,7 @@ const UserMarker = ({ location, isCurrentUser }: { location: UserLocation; isCur
         <div className="p-2">
           <div className="flex items-center gap-2 mb-2">
             {location.photoURL && (
-              <img
+              <Image
                 src={location.photoURL}
                 alt={location.displayName}
                 className="w-8 h-8 rounded-full"

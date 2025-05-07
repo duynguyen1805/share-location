@@ -23,6 +23,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
       }
       onClose();
     } catch (error) {
+      console.log(error);
       // Error is handled in useAuth hook
     }
   };
