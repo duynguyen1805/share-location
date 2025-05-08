@@ -13,6 +13,8 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
           src={user.photoURL}
           alt={user.displayName || 'User'}
           className="h-8 w-8 rounded-full"
+          height={32}
+          width={32}
         />
       ) : (
         <div className="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center">

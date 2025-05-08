@@ -46,6 +46,8 @@ export const Header = () => {
                     src="https://www.google.com/favicon.ico"
                     alt="Google"
                     className="w-4 h-4"
+                    height={16}
+                    width={16}
                   />
                   Sign in with Google
                 </button>
