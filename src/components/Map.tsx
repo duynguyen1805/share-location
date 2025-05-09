@@ -8,6 +8,7 @@ import { useLocation } from '@/hooks/useLocation';
 import { useAuth } from '@/hooks/useAuth';
 import { UserLocation } from '@/services/location';
 import 'leaflet/dist/leaflet.css';
+import { User, Location } from '@/types';
 
 // Fix for default marker icon
 const DefaultIcon = L.icon({
@@ -79,7 +80,7 @@ const ZoomToCurrentLocation = () => {
 };
 
 // Component để hiển thị marker của user
-const UserMarker = ({ location, isCurrentUser }: { location: any; isCurrentUser: boolean }) => {
+const UserMarker = ({ location, isCurrentUser }: { location: Location; isCurrentUser: boolean }) => {
   const { followUser, unfollowUser, followingUserId } = useLocation();
   const { user } = useAuth();
 
@@ -191,7 +192,7 @@ export const Map = () => {
   }
 
   // Helper function to create UserLocation
-  const createUserLocation = (location: { lat: number; lng: number }, user: any): UserLocation => ({
+  const createUserLocation = (location: { lat: number; lng: number }, user: User): UserLocation => ({
     lat: location.lat,
     lng: location.lng,
     userId: user.uid,
