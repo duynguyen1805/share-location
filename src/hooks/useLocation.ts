@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { locationService } from '@/services/location';
 import { UserLocation } from '@/types';
+import { ref, onValue } from 'firebase/database';
+import { database } from '@/services/firebase';
 
 const GEOLOCATION_OPTIONS = {
   enableHighAccuracy: true,
@@ -129,18 +131,35 @@ export const useLocation = () => {
   useEffect(() => {
     if (!user) return;
 
+    // Kiểm tra kết nối Firebase
+    const connectedRef = ref(database, '.info/connected');
+    onValue(connectedRef, (snap) => {
+      console.log('Firebase connection state:', snap.val());
+    });
+
+    // Khởi tạo location service cho user
+    locationService.initializeForUser(user);
+
     const unsubscribe = locationService.subscribeToAllLocations((locations) => {
+      console.log('Raw locations from Firebase:', locations);
+      
       const formattedLocations: { [key: string]: UserLocation } = {};
       
       Object.entries(locations).forEach(([userId, location]) => {
-        if (userId !== user.uid) {
+        console.log(`Processing location for user ${userId}:`, location);
+        
+        // Chỉ hiển thị user đang online
+        if (location.isOnline) {
           formattedLocations[userId] = {
             ...location,
-            isFollowing: false
+            isFollowing: false,
+            lastActive: location.lastActive,
+            isOnline: location.isOnline
           };
         }
       });
       
+      console.log('Formatted locations:', formattedLocations);
       setUserLocations(formattedLocations);
     });
 

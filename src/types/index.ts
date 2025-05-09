@@ -1,3 +1,5 @@
+import { UserLocation } from '@/services/location';
+
 export interface User {
   uid: string;
   email: string | null;
@@ -11,13 +13,11 @@ export interface Location {
   timestamp: number;
   userId: string;
   displayName: string;
-  photoURL?: string;
-}
-
-export interface UserLocation extends Location {
-  isFollowing: boolean;
+  photoURL?: string | null | '';
 }
 
 export interface LocationWithUser extends Location {
   user: User;
-} 
+}
+
+export type { UserLocation }; 

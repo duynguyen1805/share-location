@@ -79,7 +79,7 @@ const ZoomToCurrentLocation = () => {
 };
 
 // Component để hiển thị marker của user
-const UserMarker = ({ location, isCurrentUser }: { location: UserLocation; isCurrentUser: boolean }) => {
+const UserMarker = ({ location, isCurrentUser }: { location: any; isCurrentUser: boolean }) => {
   const { followUser, unfollowUser, followingUserId } = useLocation();
   const { user } = useAuth();
 
@@ -95,6 +95,8 @@ const UserMarker = ({ location, isCurrentUser }: { location: UserLocation; isCur
                 src={location.photoURL}
                 alt={location.displayName}
                 className="w-8 h-8 rounded-full"
+                height={32}
+                width={32}
               />
             )}
             <div>
@@ -188,20 +190,28 @@ export const Map = () => {
     zoom = 15;
   }
 
+  // Helper function to create UserLocation
+  const createUserLocation = (location: { lat: number; lng: number }, user: any): UserLocation => ({
+    lat: location.lat,
+    lng: location.lng,
+    userId: user.uid,
+    displayName: user.displayName || 'You',
+    photoURL: user.photoURL || null,
+    timestamp: Date.now(),
+    isFollowing: false,
+    isOnline: true,
+    lastActive: Date.now()
+  });
+
   // Tạo một object chứa cả vị trí hiện tại và vị trí của các user khác
-  const allLocations = {
+  const allLocations: Record<string, UserLocation> = {
     ...userLocations,
-    ...(user && currentLocation ? {
-      [user.uid]: {
-        ...currentLocation,
-        userId: user.uid,
-        displayName: user.displayName || 'You',
-        photoURL: user.photoURL || undefined,
-        timestamp: Date.now(),
-        isFollowing: false
-      }
+    ...(user && currentLocation && !userLocations[user.uid] ? {
+      [user.uid]: createUserLocation(currentLocation, user)
     } : {})
   };
+
+  console.log('allLocations:', allLocations);
 
   return (
     <div className="h-full w-full relative">
